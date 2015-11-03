@@ -18,11 +18,11 @@ public class Usuario implements Serializable {
 	@Id
 	private String emailusr;
 
-	private byte adminusr;
+	private boolean adminusr;
 
 	private String apellidousr;
 
-	private byte estadousr;
+	private boolean estadousr;
 
 	@Temporal(TemporalType.DATE)
 	private Date fechanacimientousr;
@@ -52,13 +52,7 @@ public class Usuario implements Serializable {
 		this.emailusr = emailusr;
 	}
 
-	public byte getAdminusr() {
-		return this.adminusr;
-	}
-
-	public void setAdminusr(byte adminusr) {
-		this.adminusr = adminusr;
-	}
+	
 
 	public String getApellidousr() {
 		return this.apellidousr;
@@ -68,11 +62,21 @@ public class Usuario implements Serializable {
 		this.apellidousr = apellidousr;
 	}
 
-	public byte getEstadousr() {
-		return this.estadousr;
+
+
+	public boolean isAdminusr() {
+		return adminusr;
 	}
 
-	public void setEstadousr(byte estadousr) {
+	public void setAdminusr(boolean adminusr) {
+		this.adminusr = adminusr;
+	}
+
+	public boolean isEstadousr() {
+		return estadousr;
+	}
+
+	public void setEstadousr(boolean estadousr) {
 		this.estadousr = estadousr;
 	}
 
