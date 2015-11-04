@@ -29,7 +29,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../../index.html">Home</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/Home">Home</a>
 
           </div>
 
@@ -76,8 +76,9 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="../User/iniciarSesion.html">Iniciar Sesión</a></li>
-                  <li><a href="../User/administrar.html">Administrar</a></li>
+                  <li><a href="${pageContext.request.contextPath}/Cuenta/IniciarSesion">Iniciar Sesión</a></li>
+                  <li><a href="${pageContext.request.contextPath}/Cuenta/CerrarSesion">Cerrar Sesión</a></li>
+                  <li><a href="${pageContext.request.contextPath}/Cuenta/Administrar">Administrar</a></li>
                 </ul>
               </li>
 

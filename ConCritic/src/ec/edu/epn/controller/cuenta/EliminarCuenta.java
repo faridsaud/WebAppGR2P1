@@ -14,13 +14,13 @@ import ec.edu.epn.model.servicio.ServiceCuenta;
  * Servlet implementation class Eliminar
  */
 @WebServlet("/Cuenta/Eliminar")
-public class Eliminar extends HttpServlet {
+public class EliminarCuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Eliminar() {
+    public EliminarCuenta() {
         super();
         // TODO Auto-generated constructor stub
     }

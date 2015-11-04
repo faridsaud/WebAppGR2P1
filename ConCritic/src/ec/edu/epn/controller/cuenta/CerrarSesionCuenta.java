@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class CerrarSesion
  */
 @WebServlet("/Cuenta/CerrarSesion")
-public class CerrarSesion extends HttpServlet {
+public class CerrarSesionCuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CerrarSesion() {
+    public CerrarSesionCuenta() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class CerrarSesion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getSession().invalidate();
-		getServletConfig().getServletContext().getRequestDispatcher("").forward(request, response);
+		getServletConfig().getServletContext().getRequestDispatcher("/Home").forward(request, response);
 	}
 
 	/**

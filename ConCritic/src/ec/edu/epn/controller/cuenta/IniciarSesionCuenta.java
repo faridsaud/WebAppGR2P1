@@ -16,13 +16,13 @@ import ec.edu.epn.model.servicio.ServiceCuenta;
  * Servlet implementation class IniciarSesion
  */
 @WebServlet("/Cuenta/IniciarSesion")
-public class IniciarSesion extends HttpServlet {
+public class IniciarSesionCuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IniciarSesion() {
+    public IniciarSesionCuenta() {
         super();
         // TODO Auto-generated constructor stub
     }

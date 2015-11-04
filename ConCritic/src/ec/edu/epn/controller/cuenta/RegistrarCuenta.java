@@ -17,13 +17,13 @@ import ec.edu.epn.model.servicio.ServiceCuenta;
  * Servlet implementation class Registrar
  */
 @WebServlet("/Cuenta/Registrar")
-public class Registrar extends HttpServlet {
+public class RegistrarCuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Registrar() {
+    public RegistrarCuenta() {
         super();
         // TODO Auto-generated constructor stub
     }
