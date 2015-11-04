@@ -44,6 +44,7 @@ public class Registrar extends HttpServlet {
 		UsuarioDTO usrDTO=new UsuarioDTO();
 		usrDTO.setAdmin(false);
 		usrDTO.setEstado(true);
+		request.setAttribute("errorCreacionUsuario", false);
 		try{
 			usrDTO.setApellido(request.getParameter("apellido"));
 			usrDTO.setNombre(request.getParameter("nombre"));
@@ -58,11 +59,15 @@ public class Registrar extends HttpServlet {
 				usrDTO.setFechaNacimiento(fechaNacimiento);
 			} catch (Exception e) {
 				e.printStackTrace();
+				request.setAttribute("errorCreacionUsuario", true);
+				
 			}
 			ServiceCuenta sc=new ServiceCuenta();
 			sc.registrarUsuario(usrDTO);
 		}catch(Exception e){
 			e.printStackTrace();
+			request.setAttribute("errorCreacionUsuario", true);
+			
 		}
 		doGet(request, response);
 	}

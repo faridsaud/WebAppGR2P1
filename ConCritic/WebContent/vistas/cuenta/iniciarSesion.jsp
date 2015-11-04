@@ -2,7 +2,15 @@
     pageEncoding="ISO-8859-1"%>
 <jsp:include page="/templates/header.jsp"></jsp:include>
     <div class="container">
-
+<%Boolean errorLogin=(Boolean)request.getAttribute("errorLogin");
+if(errorLogin==null)
+	errorLogin=false;
+if(errorLogin==true){
+ %>
+ <script type="text/javascript"> alert("credenciales inválidas")</script>
+ <%
+}
+ %>
       <form method="post">
         <div class="form-group">
           <label for="exampleInputEmail1">Email</label>
@@ -18,7 +26,7 @@
       <div class="row">
 
         <div class="col-xs-12">
-          <p><a href="./registrar.html">No registrado aún? Registrate</a></p>
+          <p><a href="${pageContext.request.contextPath}/Cuenta/Registrar">No registrado aún? Registrate</a></p>
         </div>
       </div>
     </div>

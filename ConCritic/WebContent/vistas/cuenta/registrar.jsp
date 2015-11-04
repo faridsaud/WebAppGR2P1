@@ -2,7 +2,15 @@
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="/templates/header.jsp"></jsp:include>
 <div class="container">
-
+<%Boolean errorCreacionUsuario=(Boolean)request.getAttribute("errorCreacionUsuario");
+if(errorCreacionUsuario==null)
+	errorCreacionUsuario=false;
+if(errorCreacionUsuario==true){
+ %>
+ <script type="text/javascript"> alert("error en la creacion del usuario")</script>
+ <%
+}
+ %>
 
 	<form method="post">
 		<div class="form-group">
