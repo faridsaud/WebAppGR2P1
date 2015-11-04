@@ -31,7 +31,7 @@ public class ServiceCuenta {
 
 		entitymanager.persist(usr);
 		entitymanager.getTransaction().commit();
-
+		
 		entitymanager.close();
 		emfactory.close();
 	}
@@ -79,8 +79,8 @@ public class ServiceCuenta {
 			if (email.equals("")) {
 				query = em.createQuery("Select u from Usuario u");
 			} else {
-				query=em.createQuery("Select u from Usuario u where u.emailusr LIKE :iEmail");
-				query.setParameter("iEmail","%"+ email+"%");
+				query = em.createQuery("Select u from Usuario u where u.emailusr LIKE :iEmail");
+				query.setParameter("iEmail", "%" + email + "%");
 			}
 		}
 		if ((usrDTO.isAdmin() == false)) {
@@ -92,14 +92,14 @@ public class ServiceCuenta {
 		}
 		@SuppressWarnings("unchecked")
 		List<Usuario> listaUsuariosActivos = query.getResultList();
-		List<UsuarioDTO> listaUsuariosActivosDTO=new ArrayList<UsuarioDTO>();
+		List<UsuarioDTO> listaUsuariosActivosDTO = new ArrayList<UsuarioDTO>();
 		em.close();
 		emf.close();
 		if (listaUsuariosActivos.equals(null)) {
 			listaUsuariosActivos = new ArrayList<Usuario>();
-		}else{
+		} else {
 			for (Usuario usr : listaUsuariosActivos) {
-				UsuarioDTO usrDTOOutput=new UsuarioDTO();
+				UsuarioDTO usrDTOOutput = new UsuarioDTO();
 				usrDTOOutput.setNombre(usr.getNombreusr());
 				usrDTOOutput.setApellido(usr.getApellidousr());
 				usrDTOOutput.setEmail(usr.getEmailusr());
@@ -114,5 +114,74 @@ public class ServiceCuenta {
 
 		return listaUsuariosActivosDTO;
 	}
+
+	public void actualizarUsuario(UsuarioDTO usrDTOInicial, UsuarioDTO usrDTOFinal) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createQuery(
+				"UPDATE Usuario u  SET u.nombreusr=:iNombre, u.apellidousr=:iApellido, u.passwordusr=:iPassword, u.fechanacimientousr=:iFechaNac, u.paisusr=:iPais WHERE u.emailusr=:iEmail");
+		query.setParameter("iNombre", usrDTOFinal.getNombre());
+		query.setParameter("iApellido", usrDTOFinal.getApellido());
+		query.setParameter("iPassword", usrDTOFinal.getPassword());
+		query.setParameter("iFechaNac", usrDTOFinal.getFechaNacimiento());
+		query.setParameter("iPais", usrDTOFinal.getPais());
+		query.setParameter("iEmail", usrDTOInicial.getEmail());
+		query.executeUpdate();
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+	}
+	
+	public void eliminarUsuario(UsuarioDTO usrDTO) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		try{
+			em.getTransaction().begin();
+		Query query = em.createQuery(
+				"DELETE FROM Usuario u  WHERE u.emailusr=:iEmail");
+		query.setParameter("iEmail", usrDTO.getEmail());
+		query.executeUpdate();
+		em.getTransaction().commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		em.close();
+		emf.close();
+	}
+	public UsuarioDTO buscarUsuarioByEmail(String email) {
+		UsuarioDTO usrDTO = new UsuarioDTO();
+		Usuario usr = new Usuario();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+
+		Query query = em.createQuery(
+				"Select u from Usuario u where u.emailusr=:iEmail");
+		query.setParameter("iEmail", email);
+		@SuppressWarnings("unchecked")
+		List<Usuario> listaUsuariosActivos = query.getResultList();
+		em.close();
+		emf.close();
+		if (listaUsuariosActivos.equals(null)) {
+			listaUsuariosActivos = new ArrayList<Usuario>();
+		}
+		if (listaUsuariosActivos.isEmpty() == true) {
+			usrDTO = null;
+			return usrDTO;
+		}
+		usr = listaUsuariosActivos.get(0);
+		usrDTO.setNombre(usr.getNombreusr());
+		usrDTO.setApellido(usr.getApellidousr());
+		usrDTO.setEmail(usr.getEmailusr());
+		usrDTO.setPassword(usr.getPasswordusr());
+		usrDTO.setPais(usr.getPaisusr());
+		usrDTO.setEstado(usr.isEstadousr());
+		usrDTO.setAdmin(usr.isAdminusr());
+		usrDTO.setFechaNacimiento(usr.getFechanacimientousr());
+		return usrDTO;
+	}
+
 
 }

@@ -1,8 +1,6 @@
 package ec.edu.epn.controller.cuenta;
 
 import java.io.IOException;
-
-import javax.print.attribute.standard.PrinterLocation;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +11,16 @@ import ec.edu.epn.model.dto.UsuarioDTO;
 import ec.edu.epn.model.servicio.ServiceCuenta;
 
 /**
- * Servlet implementation class IniciarSesion
+ * Servlet implementation class Eliminar
  */
-@WebServlet("/Cuenta/IniciarSesion")
-public class IniciarSesion extends HttpServlet {
+@WebServlet("/Cuenta/Eliminar")
+public class Eliminar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IniciarSesion() {
+    public Eliminar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +30,7 @@ public class IniciarSesion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		UsuarioDTO usrLogeado=(UsuarioDTO)request.getSession().getAttribute("usuarioLogeado");
-		if(usrLogeado==null){
-		getServletConfig().getServletContext().getRequestDispatcher("/vistas/cuenta/iniciarSesion.jsp").forward(request, response);
-		}else{
-			getServletConfig().getServletContext().getRequestDispatcher("/Home").forward(request, response);
-				
-		}
-		
+		getServletConfig().getServletContext().getRequestDispatcher("/Cuenta/Administrar").forward(request, response);
 	}
 
 	/**
@@ -47,23 +38,13 @@ public class IniciarSesion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email="";
-		String password="";
-		ServiceCuenta sc=new ServiceCuenta();
 		try{
-			email=(String)request.getParameter("email");
-			password=(String)request.getParameter("password");
+			ServiceCuenta sc= new ServiceCuenta();
+			String email= (String)request.getParameter("emailEliminar");
+			UsuarioDTO usrEliminar=sc.buscarUsuarioByEmail(email);
+			sc.eliminarUsuario(usrEliminar);
 		}catch(Exception e){
-			email="";
-			password="";
-		}
-		
-		UsuarioDTO usrDTO= sc.buscarUsuario(email, password);
-		if(usrDTO!=null){
-			request.getSession().setAttribute("usuarioLogeado", usrDTO);
-			System.out.println(usrDTO.getNombre());
-		}else{
-			request.setAttribute("errorLogin", true);
+			e.printStackTrace();
 		}
 		doGet(request, response);
 	}
