@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     11/2/2015 12:58:52 PM                        */
+/* Created on:     11/16/2015 8:21:30 PM                        */
 /*==============================================================*/
 
 
@@ -8,11 +8,9 @@ drop table if exists CATEGORIA;
 
 drop table if exists ITEM;
 
-drop table if exists ITEMTAG;
+drop table if exists MULTIMEDIA;
 
 drop table if exists REVIEW;
-
-drop table if exists TAG;
 
 drop table if exists USUARIO;
 
@@ -31,27 +29,26 @@ create table CATEGORIA
 /*==============================================================*/
 create table ITEM
 (
-   NOMBREITEM           varchar(100) not null,
-   DESCRIPCIONITEM      varchar(300) not null,
-   CALIFICACIONITEM     decimal(3,2),
-   PATHIMAGENITEM       varchar(100),
-   FECHAIMAGEN          date,
-   NUMVOTOSITEM         int,
-   IDITEM               bigint not null,
+   IDITEM               int not null,
    NOMBRECATEGORIA      varchar(20),
    EMAILUSR             varchar(50),
-   IDREVIEW             bigint,
+   NOMBREITEM           varchar(100) not null,
+   DESCRIPCIONITEM      varchar(300) not null,
+   PATHIMAGENITEM       varchar(200),
+   CALIFICACIONITEM     float(3),
+   NUMVOTOSITEM         int,
    primary key (IDITEM)
 );
 
 /*==============================================================*/
-/* Table: ITEMTAG                                               */
+/* Table: MULTIMEDIA                                            */
 /*==============================================================*/
-create table ITEMTAG
+create table MULTIMEDIA
 (
-   IDITEM               bigint not null,
-   NOMBRETAG            varchar(20) not null,
-   primary key (IDITEM, NOMBRETAG)
+   IDMULTIMEDIA         int not null,
+   IDITEM               int,
+   PATHMULTIMEDIA       varchar(300),
+   primary key (IDMULTIMEDIA)
 );
 
 /*==============================================================*/
@@ -63,19 +60,10 @@ create table REVIEW
    CALIFICACIONREVIEW   int not null,
    COMENTARIOREVIEW     varchar(500) not null,
    FECHAREVIEW          date,
-   IDREVIEW             bigint not null,
+   IDREVIEW             int not null,
    EMAILUSR             varchar(50),
-   IDITEM               bigint,
+   IDITEM               int,
    primary key (IDREVIEW)
-);
-
-/*==============================================================*/
-/* Table: TAG                                                   */
-/*==============================================================*/
-create table TAG
-(
-   NOMBRETAG            varchar(20) not null,
-   primary key (NOMBRETAG)
 );
 
 /*==============================================================*/
@@ -90,24 +78,17 @@ create table USUARIO
    FECHANACIMIENTOUSR   date,
    PAISUSR              varchar(20),
    ADMINUSR             bool,
-   ESTADOUSR            bool,
    primary key (EMAILUSR)
 );
 
 alter table ITEM add constraint FK_ITEMCATEGORIA foreign key (NOMBRECATEGORIA)
       references CATEGORIA (NOMBRECATEGORIA) on delete restrict on update restrict;
 
-alter table ITEM add constraint FK_REVIEWITEM2 foreign key (IDREVIEW)
-      references REVIEW (IDREVIEW) on delete restrict on update restrict;
-
 alter table ITEM add constraint FK_USUARIOITEM foreign key (EMAILUSR)
       references USUARIO (EMAILUSR) on delete restrict on update restrict;
 
-alter table ITEMTAG add constraint FK_ITEMTAG foreign key (IDITEM)
+alter table MULTIMEDIA add constraint FK_MULTIMEDIAITEM foreign key (IDITEM)
       references ITEM (IDITEM) on delete restrict on update restrict;
-
-alter table ITEMTAG add constraint FK_ITEMTAG2 foreign key (NOMBRETAG)
-      references TAG (NOMBRETAG) on delete restrict on update restrict;
 
 alter table REVIEW add constraint FK_REVIEWITEM foreign key (IDITEM)
       references ITEM (IDITEM) on delete restrict on update restrict;
