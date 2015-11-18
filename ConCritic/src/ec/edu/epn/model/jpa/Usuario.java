@@ -52,16 +52,6 @@ public class Usuario implements Serializable {
 		this.emailusr = emailusr;
 	}
 
-	
-
-	public String getApellidousr() {
-		return this.apellidousr;
-	}
-
-	public void setApellidousr(String apellidousr) {
-		this.apellidousr = apellidousr;
-	}
-
 
 
 	public boolean isAdminusr() {
@@ -79,6 +69,16 @@ public class Usuario implements Serializable {
 	public void setEstadousr(boolean estadousr) {
 		this.estadousr = estadousr;
 	}
+
+	public String getApellidousr() {
+		return this.apellidousr;
+	}
+
+	public void setApellidousr(String apellidousr) {
+		this.apellidousr = apellidousr;
+	}
+
+
 
 	public Date getFechanacimientousr() {
 		return this.fechanacimientousr;

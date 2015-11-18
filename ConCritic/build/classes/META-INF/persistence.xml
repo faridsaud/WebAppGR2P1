@@ -3,8 +3,8 @@
 	<persistence-unit name="ConCritic" transaction-type="RESOURCE_LOCAL">
 		<class>ec.edu.epn.model.jpa.Categoria</class>
 		<class>ec.edu.epn.model.jpa.Item</class>
+		<class>ec.edu.epn.model.jpa.Multimedia</class>
 		<class>ec.edu.epn.model.jpa.Review</class>
-		<class>ec.edu.epn.model.jpa.Tag</class>
 		<class>ec.edu.epn.model.jpa.Usuario</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.216.131:3306/webDBPrueba"/>

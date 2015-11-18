@@ -3,7 +3,6 @@ package ec.edu.epn.model.jpa;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -17,7 +16,7 @@ public class Review implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String idreview;
+	private int idreview;
 
 	private int calificacionreview;
 
@@ -27,10 +26,6 @@ public class Review implements Serializable {
 	private Date fechareview;
 
 	private String tituloreview;
-
-	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="review")
-	private List<Item> items;
 
 	//bi-directional many-to-one association to Item
 	@ManyToOne
@@ -45,11 +40,11 @@ public class Review implements Serializable {
 	public Review() {
 	}
 
-	public String getIdreview() {
+	public int getIdreview() {
 		return this.idreview;
 	}
 
-	public void setIdreview(String idreview) {
+	public void setIdreview(int idreview) {
 		this.idreview = idreview;
 	}
 
@@ -83,28 +78,6 @@ public class Review implements Serializable {
 
 	public void setTituloreview(String tituloreview) {
 		this.tituloreview = tituloreview;
-	}
-
-	public List<Item> getItems() {
-		return this.items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
-	public Item addItem(Item item) {
-		getItems().add(item);
-		item.setReview(this);
-
-		return item;
-	}
-
-	public Item removeItem(Item item) {
-		getItems().remove(item);
-		item.setReview(null);
-
-		return item;
 	}
 
 	public Item getItem() {
