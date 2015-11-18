@@ -1,6 +1,5 @@
 package ec.edu.epn.model.dto;
 
-import ec.edu.epn.model.jpa.Categoria;
 
 public class CategoriaDTO {
 	private String nombre = "";
