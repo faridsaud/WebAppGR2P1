@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     11/16/2015 8:21:30 PM                        */
+/* Created on:     11/18/2015 12:47:49 AM                       */
 /*==============================================================*/
 
 
@@ -33,8 +33,7 @@ create table ITEM
    NOMBRECATEGORIA      varchar(20),
    EMAILUSR             varchar(50),
    NOMBREITEM           varchar(100) not null,
-   DESCRIPCIONITEM      varchar(300) not null,
-   PATHIMAGENITEM       varchar(200),
+   DESCRIPCIONITEM      varchar(300),
    CALIFICACIONITEM     float(3),
    NUMVOTOSITEM         int,
    primary key (IDITEM)
@@ -78,6 +77,7 @@ create table USUARIO
    FECHANACIMIENTOUSR   date,
    PAISUSR              varchar(20),
    ADMINUSR             bool,
+   ESTADOUSR            bool,
    primary key (EMAILUSR)
 );
 
