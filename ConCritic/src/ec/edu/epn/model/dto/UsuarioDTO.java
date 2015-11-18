@@ -1,6 +1,7 @@
 package ec.edu.epn.model.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class UsuarioDTO {
 	private String email="";
@@ -11,6 +12,8 @@ public class UsuarioDTO {
 	private String pais="";
 	private boolean admin=false;
 	private boolean estado=true;
+	private List<ItemDTO> listaItems=null;
+	private List<ReviewDTO> listaReviews=null;
 	
 	public UsuarioDTO(){
 	}
@@ -77,6 +80,22 @@ public class UsuarioDTO {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public List<ItemDTO> getListaItems() {
+		return listaItems;
+	}
+
+	public void setListaItems(List<ItemDTO> listaItems) {
+		this.listaItems = listaItems;
+	}
+
+	public List<ReviewDTO> getListaReviews() {
+		return listaReviews;
+	}
+
+	public void setListaReviews(List<ReviewDTO> listaReviews) {
+		this.listaReviews = listaReviews;
 	}
 	
 	
