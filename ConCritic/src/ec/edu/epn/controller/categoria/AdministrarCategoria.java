@@ -45,6 +45,7 @@ public class AdministrarCategoria extends HttpServlet {
 				List<CategoriaDTO> listaCategorias = new ArrayList<CategoriaDTO>();
 				ServiceCategoria sc = new ServiceCategoria();
 				String nombreCat = request.getParameter("nombreCat");
+				String nombreItm = request.getParameter("nombreItm");
 				if (nombreCat == null){
 					listaCategorias = sc.listarCategoriasAll();
 				}else{

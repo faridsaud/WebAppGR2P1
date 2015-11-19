@@ -52,22 +52,12 @@ public class Usuario implements Serializable {
 		this.emailusr = emailusr;
 	}
 
-
-
 	public boolean isAdminusr() {
-		return adminusr;
+		return this.adminusr;
 	}
 
 	public void setAdminusr(boolean adminusr) {
 		this.adminusr = adminusr;
-	}
-
-	public boolean isEstadousr() {
-		return estadousr;
-	}
-
-	public void setEstadousr(boolean estadousr) {
-		this.estadousr = estadousr;
 	}
 
 	public String getApellidousr() {
@@ -78,7 +68,13 @@ public class Usuario implements Serializable {
 		this.apellidousr = apellidousr;
 	}
 
+	public boolean isEstadousr() {
+		return this.estadousr;
+	}
 
+	public void setEstadousr(boolean estadousr) {
+		this.estadousr = estadousr;
+	}
 
 	public Date getFechanacimientousr() {
 		return this.fechanacimientousr;

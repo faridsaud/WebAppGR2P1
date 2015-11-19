@@ -9,7 +9,8 @@
 		<div class="col-xs-12">
 			<form method="get">
 				<div class="form-group">
-					<label for="nombreCat">Nombre de la Categoría</label> <input name="nombreCat"
+					<label for="nombreCat">Nombre de la Categoría</label> 
+					<input name="nombreCat"
 						type="text" class="form-control" id="nombreCat">
 				</div>
 

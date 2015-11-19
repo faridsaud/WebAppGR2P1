@@ -40,9 +40,8 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Items<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="../Item/buscar.html">Buscar</a></li>
-                  <li><a href="../Item/registrar.html">Registrar</a></li>
-                  <li><a href="../Item/administrar.html">Administrar</a></li>
+                  <li><a href="${pageContext.request.contextPath}/Item/Registrar">Registrar</a></li>
+                  <li><a href="${pageContext.request.contextPath}/Item/Administrar">Administrar</a></li>
                 </ul>
               </li>
               <!-- -->
@@ -56,10 +55,10 @@
 
               <!-- -->
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tags<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Multimedia<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="../Tag/registrar.html">Registrar</a></li>
-                  <li><a href="../Tag/administrar.html">Administrar</a></li>
+                  <li><a href="${pageContext.request.contextPath}/Multimedia/Ver">Ver</a></li>
+                  <li><a href="${pageContext.request.contextPath}/Multimedia/Registrar">Registrar</a></li>
                 </ul>
               </li>
 
