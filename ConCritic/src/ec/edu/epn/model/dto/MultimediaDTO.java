@@ -4,6 +4,7 @@ public class MultimediaDTO {
 	private int id;
 	private String path;
 	private ItemDTO item;
+	
 	public MultimediaDTO() {
 		this.id = 0;
 		this.path = "";

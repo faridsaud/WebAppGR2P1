@@ -42,8 +42,15 @@ public class RegistrarItem extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		getServletConfig().getServletContext().getRequestDispatcher("/vistas/item/registrar.jsp").forward(request,
-				response);
+		UsuarioDTO usrLogeado = (UsuarioDTO) request.getSession().getAttribute("usuarioLogeado");
+		if (usrLogeado == null) {
+			getServletConfig().getServletContext().getRequestDispatcher("/vistas/home.jsp").forward(request, response);
+
+		} else {
+			getServletConfig().getServletContext().getRequestDispatcher("/vistas/item/registrar.jsp").forward(request,
+					response);
+		}
+
 	}
 
 	/**
@@ -53,59 +60,77 @@ public class RegistrarItem extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ItemDTO itemDTO = new ItemDTO();
+		boolean errorCreacion = false;
+		UsuarioDTO usrLogeado = (UsuarioDTO) request.getSession().getAttribute("usuarioLogeado");
 
-		try {
-			itemDTO.setNombre(request.getParameter("nombre"));
-			itemDTO.setDescripcion(request.getParameter("descripcion"));
+		String nombre = request.getParameter("nombre");
 
-			CategoriaDTO catDTO = new CategoriaDTO();
-			catDTO.setNombre(request.getParameter("categoria"));
-			itemDTO.setCategoria(catDTO);
-			itemDTO.setUsuario((UsuarioDTO) request.getSession().getAttribute("usuarioLogeado"));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		ServiceItem si = new ServiceItem();
-		si.registrarItem(itemDTO);
-
-		for (int i = 1; i <= 4; i++) {
-			Part filePart = request.getPart("inputFile" + i);
-			System.out.println(filePart.toString());
-			final String fileName = getFileName(filePart);
-			if (fileName != null) {
-				System.out.println("imprimiendo archivo");
-				System.out.println(fileName);
+		if (usrLogeado == null) {
+			getServletConfig().getServletContext().getRequestDispatcher("/vistas/home.jsp").forward(request, response);
+		} else {
+			if (nombre != null) {
+				ItemDTO itemDTO = new ItemDTO();
+				itemDTO.setNombre(nombre);
+				itemDTO.setDescripcion(request.getParameter("descripcion"));
+				CategoriaDTO catDTO = new CategoriaDTO();
+				catDTO.setNombre(request.getParameter("categoria"));
+				itemDTO.setCategoria(catDTO);
+				itemDTO.setUsuario(usrLogeado);
+				try {
+					ServiceItem si = new ServiceItem();
+					si.registrarItem(itemDTO);
+				} catch (Exception e) {
+					e.printStackTrace();
+					errorCreacion = true;
+				}
+				request.setAttribute("errorCreacionItem", errorCreacion);
 			}
-
-			OutputStream out = null;
-			InputStream filecontent = null;
-			try {
-				out = new FileOutputStream(new File(
-						"/Users/davidromero/Desktop/" + itemDTO.getNombre() + "/" + File.separator + fileName));
-				filecontent = filePart.getInputStream();
-
-				int read = 0;
-				final byte[] bytes = new byte[1024];
-
-				while ((read = filecontent.read(bytes)) != -1) {
-					out.write(bytes, 0, read);
+			/*
+			String path = "/Users/davidromero/Documents/workspace/WebAppGR2P1/ConCritic/WebContent/Multimedia/";
+			File directorio = new File(path+nombre);
+			directorio.mkdir();
+			
+			for (int i = 1; i <= 4; i++) {
+			
+				Part filePart = request.getPart("inputFile" + i);
+				if (filePart==null){
+					i++;
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.close();
-				}
-				if (filecontent != null) {
-					filecontent.close();
+				final String fileName = getFileName(filePart);
+				if (fileName != null) {
+					System.out.println("imprimiendo archivo");
+					System.out.println(fileName);
+					String finalPath = path+nombre+fileName;
 				}
 
+				OutputStream out = null;
+				InputStream filecontent = null;
+				try {
+					out = new FileOutputStream(
+							new File(path + nombre + "/" + File.separator + fileName));
+					filecontent = filePart.getInputStream();
+
+					int read = 0;
+					final byte[] bytes = new byte[1024];
+
+					while ((read = filecontent.read(bytes)) != -1) {
+						out.write(bytes, 0, read);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (out != null) {
+						out.close();
+					}
+					if (filecontent != null) {
+						filecontent.close();
+					}
+
+				}
 			}
+			*/
+			doGet(request, response);
 		}
-		doGet(request, response);
 	}
 
 	private String getFileName(final Part part) {
