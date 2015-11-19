@@ -65,7 +65,7 @@ public class RegistrarMultimedia extends HttpServlet {
 		MultimediaDTO mulDTO = new MultimediaDTO();
 		mulDTO.setItem(itm);
 		System.out.println(request.getContextPath());
-		String path = "/Users/davidromero/Documents/workspace/WebAppGR2P1/ConCritic/WebContent/multimedia/";
+		String path = "C:/Users/farid/Documents/7mo/Aplicaciones Web/Proyectos/WebAppGR2P1/ConCritic/WebContent/multimedia/";
 		File directorio = new File(path + id);
 		directorio.mkdir();
 

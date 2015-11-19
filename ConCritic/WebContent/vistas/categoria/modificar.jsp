@@ -4,13 +4,13 @@
 <%@ page import="ec.edu.epn.model.dto.*" %>
 <div class="container">
 	<%
-		Boolean errorCreacion = (Boolean) request.getAttribute("errorCreacionItem");
+		Boolean errorCreacion = (Boolean) request.getAttribute("errorCreacionCategoria");
 		if (errorCreacion == null)
 			errorCreacion = false;
 		if (errorCreacion == true) {
 	%>
 	<script type="text/javascript">
-		alert("error en la creacion de item")
+		alert("error en la creacion de categoria")
 	</script>
 	<%
 		}

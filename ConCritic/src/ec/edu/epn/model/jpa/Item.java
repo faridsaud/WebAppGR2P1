@@ -15,6 +15,7 @@ public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int iditem;
 
 	private float calificacionitem;
@@ -35,13 +36,13 @@ public class Item implements Serializable {
 	@JoinColumn(name="EMAILUSR")
 	private Usuario usuario;
 
-	//bi-directional many-to-one association to Review
-	@OneToMany(mappedBy="item")
-	private List<Review> reviews;
-
 	//bi-directional many-to-one association to Multimedia
 	@OneToMany(mappedBy="item")
 	private List<Multimedia> multimedias;
+
+	//bi-directional many-to-one association to Review
+	@OneToMany(mappedBy="item")
+	private List<Review> reviews;
 
 	public Item() {
 	}
@@ -102,28 +103,6 @@ public class Item implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public List<Review> getReviews() {
-		return this.reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
-
-	public Review addReview(Review review) {
-		getReviews().add(review);
-		review.setItem(this);
-
-		return review;
-	}
-
-	public Review removeReview(Review review) {
-		getReviews().remove(review);
-		review.setItem(null);
-
-		return review;
-	}
-
 	public List<Multimedia> getMultimedias() {
 		return this.multimedias;
 	}
@@ -144,6 +123,28 @@ public class Item implements Serializable {
 		multimedia.setItem(null);
 
 		return multimedia;
+	}
+
+	public List<Review> getReviews() {
+		return this.reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public Review addReview(Review review) {
+		getReviews().add(review);
+		review.setItem(this);
+
+		return review;
+	}
+
+	public Review removeReview(Review review) {
+		getReviews().remove(review);
+		review.setItem(null);
+
+		return review;
 	}
 
 }
