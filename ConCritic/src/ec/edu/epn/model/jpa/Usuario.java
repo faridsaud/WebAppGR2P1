@@ -34,11 +34,11 @@ public class Usuario implements Serializable {
 	private String passwordusr;
 
 	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario", cascade={CascadeType.ALL})
 	private List<Item> items;
 
 	//bi-directional many-to-one association to Review
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario", cascade={CascadeType.ALL})
 	private List<Review> reviews;
 
 	public Usuario() {
@@ -61,6 +61,7 @@ public class Usuario implements Serializable {
 		this.apellidousr = apellidousr;
 	}
 
+	
 
 	public boolean isAdminusr() {
 		return adminusr;

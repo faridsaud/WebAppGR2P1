@@ -20,7 +20,7 @@ public class Categoria implements Serializable {
 	private String descripcioncategoria;
 
 	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="categoria")
+	@OneToMany(mappedBy="categoria", cascade={CascadeType.ALL})
 	private List<Item> items;
 
 	public Categoria() {

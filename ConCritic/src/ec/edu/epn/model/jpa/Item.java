@@ -37,11 +37,11 @@ public class Item implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Multimedia
-	@OneToMany(mappedBy="item")
+	@OneToMany(mappedBy="item", cascade={CascadeType.ALL})
 	private List<Multimedia> multimedias;
 
 	//bi-directional many-to-one association to Review
-	@OneToMany(mappedBy="item")
+	@OneToMany(mappedBy="item", cascade={CascadeType.ALL})
 	private List<Review> reviews;
 
 	public Item() {
