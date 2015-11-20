@@ -2,7 +2,7 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     11/18/2015 12:47:49 AM                       */
 /*==============================================================*/
-
+use webDBPrueba;
 
 drop table if exists CATEGORIA;
 
@@ -29,7 +29,7 @@ create table CATEGORIA
 /*==============================================================*/
 create table ITEM
 (
-   IDITEM               int not null,
+   IDITEM               int not null AUTO_INCREMENT,
    NOMBRECATEGORIA      varchar(20),
    EMAILUSR             varchar(50),
    NOMBREITEM           varchar(100) not null,
@@ -44,7 +44,7 @@ create table ITEM
 /*==============================================================*/
 create table MULTIMEDIA
 (
-   IDMULTIMEDIA         int not null,
+   IDMULTIMEDIA         int not null AUTO_INCREMENT,
    IDITEM               int,
    PATHMULTIMEDIA       varchar(300),
    primary key (IDMULTIMEDIA)
@@ -59,7 +59,7 @@ create table REVIEW
    CALIFICACIONREVIEW   int not null,
    COMENTARIOREVIEW     varchar(500) not null,
    FECHAREVIEW          date,
-   IDREVIEW             int not null,
+   IDREVIEW             int not null AUTO_INCREMENT,
    EMAILUSR             varchar(50),
    IDITEM               int,
    primary key (IDREVIEW)
@@ -95,4 +95,3 @@ alter table REVIEW add constraint FK_REVIEWITEM foreign key (IDITEM)
 
 alter table REVIEW add constraint FK_USUARIOREVIEW foreign key (EMAILUSR)
       references USUARIO (EMAILUSR) on delete restrict on update restrict;
-

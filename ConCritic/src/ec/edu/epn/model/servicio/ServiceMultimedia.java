@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import ec.edu.epn.model.dto.ItemDTO;
 import ec.edu.epn.model.dto.MultimediaDTO;
+import ec.edu.epn.model.dto.UsuarioDTO;
 import ec.edu.epn.model.jpa.Item;
 import ec.edu.epn.model.jpa.Multimedia;
 
@@ -74,6 +75,34 @@ public class ServiceMultimedia {
 
 		return listaMultimediasDTO;
 	}
+	
+	public List<MultimediaDTO> listarMultimediasAllByUsr(UsuarioDTO usr) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		Query query = null;
+			query = em.createQuery(
+					"Select m from Multimedia m where m.item.usuario.emailusr=:iEmail");
+			query.setParameter("iEmail",usr.getEmail());
+		@SuppressWarnings("unchecked")
+		List<Multimedia> listaMultimedias = query.getResultList();
+		List<MultimediaDTO> listaMultimediasDTO = new ArrayList<MultimediaDTO>();
+		em.close();
+		emf.close();
+		if (listaMultimedias.equals(null)) {
+			listaMultimedias = new ArrayList<Multimedia>();
+		} else {
+			for (Multimedia mul : listaMultimedias) {
+				MultimediaDTO mulDTO=new MultimediaDTO();
+				mulDTO.setId(mul.getIdmultimedia());
+				mulDTO.setPath(mul.getPathmultimedia());
+				listaMultimediasDTO.add(mulDTO);
+			}
+		}
+
+		return listaMultimediasDTO;
+	}
+	
 	public List<MultimediaDTO> listarMultimediasLike(int idItem) {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
@@ -100,6 +129,35 @@ public class ServiceMultimedia {
 
 		return listaMultimediasDTO;
 	}
+	
+	public List<MultimediaDTO> listarMultimediasLikeIdByUsr(int idItem, UsuarioDTO usr) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		Query query = null;
+			query = em.createQuery(
+					"Select m from Multimedia m where m.item.iditem=:iIdItem AND m.item.usuario.emailusr=:iEmail");
+			query.setParameter("iEmail",usr.getEmail());
+			query.setParameter("iIdItem",idItem);
+		@SuppressWarnings("unchecked")
+		List<Multimedia> listaMultimedias = query.getResultList();
+		List<MultimediaDTO> listaMultimediasDTO = new ArrayList<MultimediaDTO>();
+		em.close();
+		emf.close();
+		if (listaMultimedias.equals(null)) {
+			listaMultimedias = new ArrayList<Multimedia>();
+		} else {
+			for (Multimedia mul : listaMultimedias) {
+				MultimediaDTO mulDTO=new MultimediaDTO();
+				mulDTO.setId(mul.getIdmultimedia());
+				mulDTO.setPath(mul.getPathmultimedia());
+				listaMultimediasDTO.add(mulDTO);
+			}
+		}
+
+		return listaMultimediasDTO;
+	}
+	
 	public void actualizarMultimedia(MultimediaDTO mulDTOInicial, MultimediaDTO mulDTOFinal) {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");

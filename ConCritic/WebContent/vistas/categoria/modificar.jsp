@@ -4,7 +4,7 @@
 <%@ page import="ec.edu.epn.model.dto.*" %>
 <div class="container">
 	<%
-		Boolean errorCreacion = (Boolean) request.getAttribute("errorCreacionItem");
+		Boolean errorCreacion = (Boolean) request.getAttribute("errorCreacionCategoria");
 		if (errorCreacion == null)
 			errorCreacion = false;
 		if (errorCreacion == true) {
