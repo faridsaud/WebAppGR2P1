@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import ec.edu.epn.model.dto.CategoriaDTO;
 import ec.edu.epn.model.dto.ItemDTO;
+import ec.edu.epn.model.dto.UsuarioDTO;
 import ec.edu.epn.model.jpa.Categoria;
 import ec.edu.epn.model.jpa.Item;
 import ec.edu.epn.model.jpa.Usuario;
@@ -94,12 +95,95 @@ public class ServiceItem {
 		return listaItemsDTO;
 	}
 
+	public List<ItemDTO> listarItemsLikeCatByUsr(String nombreCat,UsuarioDTO usr) {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("Select i from Item i where i.categoria.nombrecategoria LIKE :iNombreCategoria AND i.usuario.emailusr=:iEmail");
+		query.setParameter("iNombreCategoria", "%" + nombreCat + "%");
+		query.setParameter("iEmail", usr.getEmail());
+		@SuppressWarnings("unchecked")
+		List<Item> listaItems = query.getResultList();
+		List<ItemDTO> listaItemsDTO = new ArrayList<ItemDTO>();
+		em.close();
+		emf.close();
+		if (listaItems.equals(null)) {
+			listaItems = new ArrayList<Item>();
+		} else {
+			for (Item itm : listaItems) {
+				ItemDTO itemDTO = new ItemDTO();
+				itemDTO.setId(itm.getIditem());
+				itemDTO.setNombre(itm.getNombreitem());
+				itemDTO.setDescripcion(itm.getDescripcionitem());
+				itemDTO.setCalificacion(itm.getCalificacionitem());
+				listaItemsDTO.add(itemDTO);
+			}
+		}
+		return listaItemsDTO;
+	}
+
 	public List<ItemDTO> listarItemsLikeItm(String nombreItm) {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("Select i from Item i where i.nombreitem LIKE :iNombreItem");
 		query.setParameter("iNombreItem", "%" + nombreItm + "%");
+
+		@SuppressWarnings("unchecked")
+		List<Item> listaItems = query.getResultList();
+		List<ItemDTO> listaItemsDTO = new ArrayList<ItemDTO>();
+		em.close();
+		emf.close();
+		if (listaItems.equals(null)) {
+			listaItems = new ArrayList<Item>();
+		} else {
+			for (Item itm : listaItems) {
+				ItemDTO itemDTO = new ItemDTO();
+				itemDTO.setId(itm.getIditem());
+				itemDTO.setNombre(itm.getNombreitem());
+				itemDTO.setDescripcion(itm.getDescripcionitem());
+				itemDTO.setCalificacion(itm.getCalificacionitem());
+				listaItemsDTO.add(itemDTO);
+			}
+		}
+		return listaItemsDTO;
+	}
+	
+	public List<ItemDTO> listarItemsLikeItmByUsr(String nombreItm, UsuarioDTO usr) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("Select i from Item i where i.nombreitem LIKE :iNombreItem AND i.usuario.emailusr=:iEmail");
+		query.setParameter("iEmail", usr.getEmail());
+		query.setParameter("iNombreItem", "%" + nombreItm + "%");
+
+		@SuppressWarnings("unchecked")
+		List<Item> listaItems = query.getResultList();
+		List<ItemDTO> listaItemsDTO = new ArrayList<ItemDTO>();
+		em.close();
+		emf.close();
+		if (listaItems.equals(null)) {
+			listaItems = new ArrayList<Item>();
+		} else {
+			for (Item itm : listaItems) {
+				ItemDTO itemDTO = new ItemDTO();
+				itemDTO.setId(itm.getIditem());
+				itemDTO.setNombre(itm.getNombreitem());
+				itemDTO.setDescripcion(itm.getDescripcionitem());
+				itemDTO.setCalificacion(itm.getCalificacionitem());
+				listaItemsDTO.add(itemDTO);
+			}
+		}
+		return listaItemsDTO;
+	}
+	
+	public List<ItemDTO> listarItemsByUsr(UsuarioDTO usr) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+
+		Query query = em.createQuery("Select i from Item i where i.usuario.emailusr=:iEmail");
+		query.setParameter("iEmail", usr.getEmail());
 
 		@SuppressWarnings("unchecked")
 		List<Item> listaItems = query.getResultList();
@@ -127,7 +211,37 @@ public class ServiceItem {
 		EntityManager em = emf.createEntityManager();
 		Query query = null;
 		query = em.createQuery(
-				"Select i from Item i where i.nombreitem LIKE :iNombreItem AND i.categoria.nombrecategoria LIKE :iNombreCategoria");
+				"Select i from Item i where i.nombreitem LIKE :iNombreItem AND i.categoria.nombrecategoria LIKE :iNombreCategoria ");
+		query.setParameter("iNombreItem", "%" + nombreItm + "%");
+		query.setParameter("iNombreCategoria", "%" + nombreCat + "%");
+		@SuppressWarnings("unchecked")
+		List<Item> listaItems = query.getResultList();
+		List<ItemDTO> listaItemsDTO = new ArrayList<ItemDTO>();
+		em.close();
+		emf.close();
+		if (listaItems.equals(null)) {
+			listaItems = new ArrayList<Item>();
+		} else {
+			for (Item itm : listaItems) {
+				ItemDTO itemDTO = new ItemDTO();
+				itemDTO.setId(itm.getIditem());
+				itemDTO.setNombre(itm.getNombreitem());
+				itemDTO.setDescripcion(itm.getDescripcionitem());
+				itemDTO.setCalificacion(itm.getCalificacionitem());
+				listaItemsDTO.add(itemDTO);
+			}
+		}
+		return listaItemsDTO;
+	}
+	
+	public List<ItemDTO> listarItemsLikeCatItmByUsr(String nombreItm, String nombreCat,UsuarioDTO usr) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		Query query = null;
+		query = em.createQuery(
+				"Select i from Item i where i.nombreitem LIKE :iNombreItem AND i.categoria.nombrecategoria LIKE :iNombreCategoria AND i.usuario.emailusr=:iEmail");
+		query.setParameter("iEmail", usr.getEmail());
 		query.setParameter("iNombreItem", "%" + nombreItm + "%");
 		query.setParameter("iNombreCategoria", "%" + nombreCat + "%");
 		@SuppressWarnings("unchecked")

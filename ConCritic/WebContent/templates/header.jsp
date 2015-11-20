@@ -16,76 +16,89 @@
 
 </head>
 <body>
-    <div class="row">
+	<div class="row">
 
-      <div class="col-xs-12">
-        <nav class="navbar navbar-inverse">
+		<div class="col-xs-12">
+			<nav class="navbar navbar-inverse"> <!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/Home">Home</a>
 
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/Home">Home</a>
+			</div>
 
-          </div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<!-- -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Items<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="${pageContext.request.contextPath}/Item/Buscar">Buscar</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/Item/Registrar">Registrar</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/Item/Administrar">Administrar</a></li>
+						</ul></li>
+					<!-- -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Reviews<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="../Item/buscar.html">Registrar</a></li>
+							<li><a href="../Review/administrar.html">Administrar</a></li>
+						</ul></li>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" >
-              <!-- -->
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Items<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="${pageContext.request.contextPath}/Item/Registrar">Registrar</a></li>
-                  <li><a href="${pageContext.request.contextPath}/Item/Administrar">Administrar</a></li>
-                </ul>
-              </li>
-              <!-- -->
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reviews<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="../Item/buscar.html">Registrar</a></li>
-                  <li><a href="../Review/administrar.html">Administrar</a></li>
-                </ul>
-              </li>
+					<!-- -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Multimedia<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="${pageContext.request.contextPath}/Multimedia/Ver">Ver</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/Multimedia/Registrar">Registrar</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/Multimedia/Administrar">Administrar</a></li>
+						</ul></li>
 
-              <!-- -->
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Multimedia<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="${pageContext.request.contextPath}/Multimedia/Ver">Ver</a></li>
-                  <li><a href="${pageContext.request.contextPath}/Multimedia/Registrar">Registrar</a></li>
-                </ul>
-              </li>
+					<!-- -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Categorias<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="${pageContext.request.contextPath}/Categoria/Registrar">Registrar</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/Categoria/Administrar">Administrar</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Cuenta<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="${pageContext.request.contextPath}/Cuenta/IniciarSesion">Iniciar
+									Sesión</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/Cuenta/CerrarSesion">Cerrar
+									Sesión</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/Cuenta/Administrar">Administrar</a></li>
+						</ul></li>
 
-              <!-- -->
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="${pageContext.request.contextPath}/Categoria/Registrar">Registrar</a></li>
-                  <li><a href="${pageContext.request.contextPath}/Categoria/Administrar">Administrar</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="${pageContext.request.contextPath}/Cuenta/IniciarSesion">Iniciar Sesión</a></li>
-                  <li><a href="${pageContext.request.contextPath}/Cuenta/CerrarSesion">Cerrar Sesión</a></li>
-                  <li><a href="${pageContext.request.contextPath}/Cuenta/Administrar">Administrar</a></li>
-                </ul>
-              </li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse --> </nav>
+		</div>
 
-          </ul>
-          </div><!-- /.navbar-collapse -->
-
-        </nav>
-      </div>
-
-    </div>
-
+	</div>
