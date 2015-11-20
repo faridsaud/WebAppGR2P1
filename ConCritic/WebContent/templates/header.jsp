@@ -53,8 +53,7 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Reviews<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="../Item/buscar.html">Registrar</a></li>
-							<li><a href="../Review/administrar.html">Administrar</a></li>
+							<li><a href="${pageContext.request.contextPath}/Review/Administrar">Administrar</a></li>
 						</ul></li>
 
 					<!-- -->

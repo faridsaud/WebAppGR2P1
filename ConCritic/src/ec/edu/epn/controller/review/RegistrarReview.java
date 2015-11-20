@@ -47,20 +47,23 @@ public class RegistrarReview extends HttpServlet {
 
 		} else {
 			ServiceReview sr = new ServiceReview();
-			ReviewDTO reviewByUsr = sr.buscarReviewByUser(usrLogeado);
+			String idItem = (String) request.getParameter("idItemReview");
+			int id = Integer.parseInt(idItem);
+			ItemDTO itemDTO=new ItemDTO();
+			itemDTO.setId(id);
+			System.out.println(idItem);
+			ReviewDTO reviewByUsr = sr.buscarReviewByUserByItem(usrLogeado, itemDTO);
 			if (reviewByUsr != null) {
 				getServletConfig().getServletContext().getRequestDispatcher("/Item/Buscar").forward(request, response);
 
 			} else {
 
 				ServiceMultimedia sm = new ServiceMultimedia();
-				String idItem = (String) request.getParameter("idItemReview");
 				List<MultimediaDTO> listaMultimedia = new ArrayList<MultimediaDTO>();
 
 				if (idItem == null) {
 
 				} else {
-					int id = Integer.parseInt(idItem);
 					request.getSession().setAttribute("idItemRev", id);
 					listaMultimedia = sm.listarMultimediasLike(id);
 					request.setAttribute("listaMultimediaInfo", listaMultimedia);
