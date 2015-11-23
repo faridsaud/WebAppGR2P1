@@ -21,22 +21,22 @@ if(usrModificar==null)
 		<div class="form-group">
 			<label for="Email">Email</label> <input type="email"
 				class="form-control" id="Email" placeholder="Email" name="email"
-				required="true" readonly="true" value=<%=usrModificar.getEmail()%>>
+				required="true" readonly="true" value="<%=usrModificar.getEmail()%>">
 		</div>
 		<div class="form-group">
 			<label for="Password">Password</label> <input type="password"
 				class="form-control" id="Password" placeholder="Password"
-				name="password" required="true" value=<%=usrModificar.getPassword()%>>
+				name="password" required="true" value="<%=usrModificar.getPassword()%>">
 		</div>
 		<div class="form-group">
 			<label for="nombre">Nombre</label> <input type="text"
 				class="form-control" placeholder="nombre" id="nombre" name="nombre"
-				required="true" value=<%=usrModificar.getNombre()%>>
+				required="true" value="<%=usrModificar.getNombre()%>">
 		</div>
 		<div class="form-group">
 			<label for="apellido">Apellido</label> <input type="text"
 				class="form-control" placeholder="apellido" id="apellido"
-				name="apellido" required="true" value=<%=usrModificar.getApellido()%>>
+				name="apellido" required="true" value="<%=usrModificar.getApellido()%>">
 		</div>
 		<div class="form-group">
 			<label for="fechaNac">Fecha Nacimiento</label> <input type="date"

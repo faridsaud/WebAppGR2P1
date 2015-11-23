@@ -25,7 +25,7 @@
 	 <form method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="nombre">Nombre del Item</label> <input name="nombreItm"
-				type="text" class="form-control" id="nombreItm" value=<%=itmDTO.getNombre()%>>
+				type="text" class="form-control" id="nombreItm" value="<%=itmDTO.getNombre()%>">
 		</div>
 
 		<div class="form-group">

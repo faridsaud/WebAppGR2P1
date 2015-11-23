@@ -20,7 +20,7 @@
 			<form method="post">
 				<div class="form-group">
 					<label for="tituloRev">Titulo</label> <input name="tituloRev" type="text"
-						class="form-control" value=<%=revDTO.getTitulo() %> id="tituloRev" required="required">
+						class="form-control" value="<%=revDTO.getTitulo() %>" id="tituloRev" required="required">
 				</div>
 				<div class="form-group">
 					<label for="calificacionRev">Calificación</label> <select

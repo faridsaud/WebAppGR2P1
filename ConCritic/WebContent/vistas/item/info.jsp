@@ -19,7 +19,7 @@
 		<div class="form-group">
 			<label for="nombre">Nombre del Item</label> <input name="nombreItm"
 				type="text" class="form-control" id="nombreItm"
-				value=<%=itmDTO.getNombre()%> readonly="readonly">
+				value="<%=itmDTO.getNombre()%>" readonly="readonly">
 		</div>
 
 		<div class="form-group">
