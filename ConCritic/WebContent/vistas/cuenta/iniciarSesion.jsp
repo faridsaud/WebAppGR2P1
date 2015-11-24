@@ -14,20 +14,15 @@ if(errorLogin==true){
       <form method="post">
         <div class="form-group">
           <label for="exampleInputEmail1">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email" required="true">
+          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email" required title="lo que tu quieres">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" required="true">
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" title="lo que tu quieres">
         </div>
         <button type="submit" class="btn btn-default">Iniciar Sesión</button>
       </form>
-
-      <div class="row">
-
-        <div class="col-xs-12">
-          <p><a href="${pageContext.request.contextPath}/Cuenta/Registrar">No registrado aún? Registrate</a></p>
-        </div>
+	  <hr>
+	  <a href="${pageContext.request.contextPath}/Cuenta/Registrar">No registrado aún? Registrate</a>
       </div>
-    </div>
 <jsp:include page="/templates/footer.jsp"></jsp:include>

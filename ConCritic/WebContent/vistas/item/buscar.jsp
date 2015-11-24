@@ -65,7 +65,7 @@
 							<form method="get"
 								action="${pageContext.request.contextPath}/Item/Info">
 								<button type="submit" class="btn btn-default"
-									value="<%=itm.getId()%>" name="idItem"><%=itm.getNombre()%></button>
+									value="<%=itm.getId()%>" name="idItem"><%=itm.getNombre()%><%=itm.getId()%></button>
 							</form>
 						</td>
 						<td><%=itm.getCalificacion()%></td>

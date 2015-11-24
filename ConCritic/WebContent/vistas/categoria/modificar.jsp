@@ -27,7 +27,7 @@
 		<div class="form-group">
 			<label for="nombreCat">Nombre de la Categoría</label> <input
 				name="nombreCat" type="text" class="form-control" id="nombreCat"
-				value=<%=catDTO.getNombre()%> readonly="readonly">
+				value="<%=catDTO.getNombre()%>" readonly="readonly">
 		</div>
 		<div class="form-group">
 			<label for="descripcionCat">Descripción</label>
