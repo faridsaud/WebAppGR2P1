@@ -22,10 +22,13 @@
 		<auth-constraint>
 			<role-name>Profesor</role-name>
 		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
 	</security-constraint>
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>ApplicationRealm</realm-name>
+		<realm-name>secureDomain</realm-name>
 	</login-config>
 	<security-role>
 		<role-name>Estudiante</role-name>
