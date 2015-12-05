@@ -1,6 +1,7 @@
 package ec.edu.epn.controller.cuenta;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.print.attribute.standard.PrinterLocation;
 import javax.servlet.ServletException;
@@ -18,7 +19,8 @@ import ec.edu.epn.model.servicio.ServiceCuenta;
 @WebServlet("/Cuenta/IniciarSesion")
 public class IniciarSesionCuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
+	private final static Logger LOGGER = Logger.getLogger(IniciarSesionCuenta.class.getName());
     /**
      * @see HttpServlet#HttpServlet()
      */
