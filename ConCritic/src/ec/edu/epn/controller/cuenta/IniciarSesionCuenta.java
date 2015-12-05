@@ -1,7 +1,8 @@
 package ec.edu.epn.controller.cuenta;
 
 import java.io.IOException;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.print.attribute.standard.PrinterLocation;
 import javax.servlet.ServletException;
@@ -10,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.logging.Logger;
-import org.jboss.logging.Logger.Level;
 
 import ec.edu.epn.model.dto.UsuarioDTO;
 import ec.edu.epn.model.servicio.ServiceCuenta;
@@ -67,7 +66,7 @@ public class IniciarSesionCuenta extends HttpServlet {
 		if(usrDTO!=null){
 			request.getSession().setAttribute("usuarioLogeado", usrDTO);
 			System.out.println(usrDTO.getNombre());
-			LOGGER.log(Level.DEBUG,"Se logeo un usuario dentro de la aplicacion");
+			LOGGER.log(Level.INFO,"Se logeo un usuario dentro de la aplicacion");
 		}else{
 			request.setAttribute("errorLogin", true);
 		}
