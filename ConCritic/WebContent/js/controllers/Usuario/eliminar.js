@@ -4,8 +4,7 @@ app.controller('eliminarUsuario',['$scope','$rootScope','$location','$http','toa
     method:'DELETE',
     url:"http://localhost:8080/ConCritic/REST/Usuario/"+$stateParams.email,
   }).then(function success(response){
-    $scope.usuario=response.data;
-    console.log("usuario"+$scope.usuario);
+    toastr.success("Exito al eliminar el usuario","Exito");
     $location.path("/home");
 
 

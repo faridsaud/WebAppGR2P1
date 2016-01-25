@@ -26,6 +26,10 @@ public class ReviewDTO {
 	}
 
 	public ReviewDTO(JsonObject jsonObject) {
+		try{
+			this.id=jsonObject.getInt("id");
+		}catch(Exception e){
+		}
 		this.calificacion = Integer.parseInt(jsonObject.getString("calificacion"));
 		this.comentario = jsonObject.getString("comentario");
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -84,5 +88,11 @@ public class ReviewDTO {
 	}
 	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
+	}
+
+	@Override
+	public String toString() {
+		return "ReviewDTO [id=" + id + ", calificacion=" + calificacion + ", comentario=" + comentario + ", fecha="
+				+ fecha + ", titulo=" + titulo + ", item=" + item + ", usuario=" + usuario + "]";
 	}
 }

@@ -42,5 +42,19 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     templateUrl: "./html/Review/registrar.html",
     controller: 'registrarReview'
   })
-
+  .state('administrarReview', {
+    url: "/Review/administrar",
+    templateUrl: "./html/Review/administrar.html",
+    controller: 'administrarReview'
+  })
+  .state('modificarReview', {
+    url: "/Review/modificar/{idReview}",
+    templateUrl: "./html/Review/modificar.html",
+    controller: 'modificarReview'
+  })
+  .state('eliminarReview', {
+    url: "/Review/eliminar/{idReview}",
+    templateUrl: "./html/home.html",
+    controller: 'eliminarReview'
+  })
 });

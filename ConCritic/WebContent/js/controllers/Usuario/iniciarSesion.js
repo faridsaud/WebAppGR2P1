@@ -1,7 +1,7 @@
-  app.controller('iniciarSesion',['$scope','$rootScope','$location','$http','toastr',function($scope,$rootScope,$location,$http,toastr){
-    if($rootScope.usuarioLogeado){
-      $location.path("/home");
-    }
+app.controller('iniciarSesion',['$scope','$rootScope','$location','$http','toastr',function($scope,$rootScope,$location,$http,toastr){
+  if($rootScope.usuarioLogeado){
+    $location.path("/home");
+  }else{
     $scope.usuario= new Object();
     $scope.iniciarSesion= function(){
       $http({
@@ -23,4 +23,5 @@
         toastr.error("Error al logear usuario","Error");
       })
     }
-  }]);
+  }
+}]);

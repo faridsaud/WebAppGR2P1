@@ -63,6 +63,7 @@ public class ServiceReview {
 	public void actualizarReview(JsonObject jsonObject) {
 		ReviewDTO revDTOInicial= new ReviewDTO(jsonObject.getJsonObject("revDTOInicial"));
 		ReviewDTO revDTOFinal= new ReviewDTO(jsonObject.getJsonObject("revDTOFinal"));
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -74,6 +75,7 @@ public class ServiceReview {
 		query.setParameter("iFecha", new Date());
 		query.setParameter("iIdReview", revDTOInicial.getId());
 		query.executeUpdate();
+
 		Item itm = em.find(Item.class, revDTOInicial.getItem().getId());
 		itm.setCalificacionitem((itm.getCalificacionitem()*itm.getNumvotositem()+revDTOFinal.getCalificacion()-revDTOInicial.getCalificacion())/itm.getNumvotositem());
 		em.persist(itm);
@@ -85,7 +87,8 @@ public class ServiceReview {
 	@POST
 	@Path("/BuscarByUsuarioItem")
 	public ReviewDTO buscarReviewByUserByItem(JsonObject jsonObject) {
-		UsuarioDTO usrDTO= new UsuarioDTO(jsonObject.getJsonObject("usuario"));
+		UsuarioDTO usrDTO= new UsuarioDTO();
+		usrDTO.setEmail(jsonObject.getJsonObject("usuario").getString("email"));
 		ItemDTO itmDTO= new ItemDTO();
 		itmDTO.setId(jsonObject.getJsonObject("item").getInt("id"));
 		ReviewDTO revDTO = new ReviewDTO();
@@ -162,6 +165,44 @@ public class ServiceReview {
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("Select r from Review r where r.item.nombreitem LIKE :iNombreItem");
 		query.setParameter("iNombreItem", "%" + nombreItem + "%");
+		@SuppressWarnings("unchecked")
+		List<Review> listaReviews = query.getResultList();
+		em.close();
+		emf.close();
+		if (listaReviews.equals(null)) {
+			listaReviews = new ArrayList<Review>();
+		}
+		if (listaReviews.isEmpty() == true) {
+			return listaReviewsDTO;
+		}
+		for (Review rev : listaReviews) {
+			ReviewDTO revDTO = new ReviewDTO();
+			revDTO.setCalificacion(rev.getCalificacionreview());
+			revDTO.setComentario(rev.getComentarioreview());
+			revDTO.setFecha(rev.getFechareview());
+			revDTO.setId(rev.getIdreview());
+			ServiceItem si = new ServiceItem();
+			revDTO.setItem(si.buscarItem(rev.getItem().getIditem()));
+			revDTO.setTitulo(rev.getTituloreview());
+			ServiceCuenta sc = new ServiceCuenta();
+			revDTO.setUsuario(sc.buscarUsuarioByEmail(rev.getUsuario().getEmailusr()));
+			listaReviewsDTO.add(revDTO);
+		}
+		return listaReviewsDTO;
+	}
+	@GET
+	@Path("/buscarLikeItem/{nombreItem}/{email}")
+	public List<ReviewDTO> buscarReviewsLikeItemUsuario(@PathParam("nombreItem") String nombreItem, @PathParam("email") String email) {
+		if(nombreItem==null)
+			nombreItem="";
+		if(email==null)
+			email="";
+		List<ReviewDTO> listaReviewsDTO = new ArrayList<ReviewDTO>();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("Select r from Review r where r.item.nombreitem LIKE :iNombreItem and r.usuario.emailusr=:iEmail ");
+		query.setParameter("iNombreItem", "%" + nombreItem + "%");
+		query.setParameter("iEmail", email );
 		@SuppressWarnings("unchecked")
 		List<Review> listaReviews = query.getResultList();
 		em.close();

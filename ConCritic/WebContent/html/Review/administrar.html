@@ -5,9 +5,9 @@
         <form method="get">
           <div class="form-group">
             <label for="nombre">Nombre del Item</label>
-            <input name="nombre" type="text" class="form-control" id="nombre" >
+            <input name="nombre" type="text" class="form-control" id="nombre" ng-model="item.nombre" >
           </div>
-          <button type="submit" class="btn btn-default">Buscar</button>
+          <button type="button" ng-click="buscar()" class="btn btn-default">Buscar</button>
         </form>
       </div>
     </div>
@@ -33,22 +33,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><a href="#">Anime 1</a></td>
-              <td>Excelente anime</td>
-              <td>4</td>
+            <tr ng-repeat="review in listaReview">
+              <td><a ng-href="#/Item/{{review.item.id}}">{{review.item.nombre}}</a></td>
+              <td>{{review.comentario}}</td>
+              <td>{{review.calificacion}}</td>
               <td>
-                <a href="../Review/modificar.html"<span class="glyphicon glyphicon-pencil" title="Modificar Review"></span></a>
-                <a href="#"><span class="glyphicon glyphicon-remove" title="Eliminar Review"></span></a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="#">PC 1</a></td>
-              <td>Mala PCa aasas as as as as as as as as as as as as as as </td>
-              <td>1</td>
-              <td>
-                <a href="../Review/modificar.html"<span class="glyphicon glyphicon-pencil" title="Modificar Review"></span></a>
-                <a href="#"><span class="glyphicon glyphicon-remove" title="Eliminar Review"></span></a>
+                <a ng-href="#/Review/modificar/{{review.id}}"><span class="glyphicon glyphicon-pencil" title="Modificar Review"></span></a>
+                <a ng-href="#/Review/eliminar/{{review.id}}"><span class="glyphicon glyphicon-remove" title="Eliminar Review"></span></a>
               </td>
             </tr>
           </tbody>
