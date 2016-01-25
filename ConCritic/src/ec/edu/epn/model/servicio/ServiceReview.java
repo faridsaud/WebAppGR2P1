@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import ec.edu.epn.model.dto.ItemDTO;
 import ec.edu.epn.model.dto.ReviewDTO;
@@ -16,10 +25,17 @@ import ec.edu.epn.model.jpa.Item;
 import ec.edu.epn.model.jpa.Review;
 import ec.edu.epn.model.jpa.Usuario;
 
+@Path("/Review/")
+@Produces("application/json")
+@Consumes("application/json")
 public class ServiceReview {
 
-	public void registrarReview(ReviewDTO revDTO) {
-
+	@POST
+	@Path("/")
+	public void registrarReview(JsonObject jsonObject) {
+		/*requiere id del usuario e id del item*/
+		System.out.println(jsonObject);
+		ReviewDTO revDTO= new ReviewDTO(jsonObject);
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
@@ -41,8 +57,12 @@ public class ServiceReview {
 		entitymanager.close();
 		emfactory.close();
 	}
-	public void actualizarReview(ReviewDTO revDTOInicial, ReviewDTO revDTOFinal) {
-
+	
+	@PUT
+	@Path("/")
+	public void actualizarReview(JsonObject jsonObject) {
+		ReviewDTO revDTOInicial= new ReviewDTO(jsonObject.getJsonObject("revDTOInicial"));
+		ReviewDTO revDTOFinal= new ReviewDTO(jsonObject.getJsonObject("revDTOFinal"));
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -62,9 +82,12 @@ public class ServiceReview {
 		emf.close();
 	}
 	
-
-	public ReviewDTO buscarReviewByUserByItem(UsuarioDTO usrDTO, ItemDTO itmDTO) {
-
+	@POST
+	@Path("/BuscarByUsuarioItem")
+	public ReviewDTO buscarReviewByUserByItem(JsonObject jsonObject) {
+		UsuarioDTO usrDTO= new UsuarioDTO(jsonObject.getJsonObject("usuario"));
+		ItemDTO itmDTO= new ItemDTO();
+		itmDTO.setId(jsonObject.getJsonObject("item").getInt("id"));
 		ReviewDTO revDTO = new ReviewDTO();
 		Review rev = new Review();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
@@ -96,17 +119,20 @@ public class ServiceReview {
 		return revDTO;
 	}
 
-	public List<ReviewDTO> buscarReviewsByItem(ItemDTO itmDTO) {
-
+	@GET
+	@Path("/buscar/{idItem}")
+	public List<ReviewDTO> buscarReviewsByItem(@PathParam("idItem") int idItem) {
+		
 		List<ReviewDTO> listaReviewsDTO = new ArrayList<ReviewDTO>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("Select r from Review r where r.item.iditem=:iIdItem");
-		query.setParameter("iIdItem", itmDTO.getId());
+		query.setParameter("iIdItem", idItem);
 		@SuppressWarnings("unchecked")
 		List<Review> listaReviews = query.getResultList();
 		em.close();
 		emf.close();
+		
 		if (listaReviews.equals(null)) {
 			listaReviews = new ArrayList<Review>();
 		}
@@ -119,7 +145,6 @@ public class ServiceReview {
 			revDTO.setComentario(rev.getComentarioreview());
 			revDTO.setFecha(rev.getFechareview());
 			revDTO.setId(rev.getIdreview());
-			revDTO.setItem(itmDTO);
 			revDTO.setTitulo(rev.getTituloreview());
 			ServiceCuenta sc = new ServiceCuenta();
 			revDTO.setUsuario(sc.buscarUsuarioByEmail(rev.getUsuario().getEmailusr()));
@@ -128,13 +153,15 @@ public class ServiceReview {
 		return listaReviewsDTO;
 	}
 
-	public List<ReviewDTO> buscarReviewsLikeItem(ItemDTO itmDTO) {
+	@GET
+	@Path("/buscarLikeItem/{nombreItem}")
+	public List<ReviewDTO> buscarReviewsLikeItem(@PathParam("nombreItem") String nombreItem) {
 
 		List<ReviewDTO> listaReviewsDTO = new ArrayList<ReviewDTO>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("Select r from Review r where r.item.nombreitem LIKE :iNombreItem");
-		query.setParameter("iNombreItem", "%" + itmDTO.getNombre() + "%");
+		query.setParameter("iNombreItem", "%" + nombreItem + "%");
 		@SuppressWarnings("unchecked")
 		List<Review> listaReviews = query.getResultList();
 		em.close();
@@ -161,13 +188,15 @@ public class ServiceReview {
 		return listaReviewsDTO;
 	}
 
-	public List<ReviewDTO> buscarReviewsByUsr(UsuarioDTO usrDTO) {
+	@GET
+	@Path("/buscarByUser/{emailUsuario}")
+	public List<ReviewDTO> buscarReviewsByUsr(@PathParam("emailUsuario") String emailUsuario) {
 
 		List<ReviewDTO> listaReviewsDTO = new ArrayList<ReviewDTO>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("Select r from Review r where r.usuario.emailusr=:iEmail");
-		query.setParameter("iEmail", usrDTO.getEmail());
+		query.setParameter("iEmail", emailUsuario);
 		@SuppressWarnings("unchecked")
 		List<Review> listaReviews = query.getResultList();
 		em.close();
@@ -195,6 +224,8 @@ public class ServiceReview {
 		return listaReviewsDTO;
 	}
 
+	@GET
+	@Path("/")
 	public List<ReviewDTO> buscarAllReviews() {
 
 		List<ReviewDTO> listaReviewsDTO = new ArrayList<ReviewDTO>();
@@ -230,7 +261,9 @@ public class ServiceReview {
 		return listaReviewsDTO;
 	}
 
-	public ReviewDTO buscarReviewById(int id) {
+	@GET
+	@Path("/{id}")
+	public ReviewDTO buscarReviewById(@PathParam("id")int id) {
 
 		ReviewDTO revDTO = new ReviewDTO();
 		Review rev = new Review();
@@ -262,7 +295,9 @@ public class ServiceReview {
 		return revDTO;
 	}
 	
-	public void eliminarReview(int id) {
+	@DELETE
+	@Path("/{id}")
+	public void eliminarReview(@PathParam("id")int id) {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();

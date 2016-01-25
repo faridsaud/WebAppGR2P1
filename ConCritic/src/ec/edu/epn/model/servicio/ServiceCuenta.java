@@ -3,18 +3,33 @@ package ec.edu.epn.model.servicio;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import ec.edu.epn.model.dto.UsuarioDTO;
 import ec.edu.epn.model.jpa.Usuario;
 
+@Path("/Usuario/")
+@Produces("application/json")
 public class ServiceCuenta {
 
-	public void registrarUsuario(UsuarioDTO usrDTO) {
-
+	@POST
+	@Path("/")
+	@Consumes("application/json")
+	public void registrarUsuario(JsonObject JsonRequest) {
+		UsuarioDTO usrDTO = new UsuarioDTO(JsonRequest);
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
@@ -31,12 +46,18 @@ public class ServiceCuenta {
 
 		entitymanager.persist(usr);
 		entitymanager.getTransaction().commit();
-		
+
 		entitymanager.close();
 		emfactory.close();
 	}
 
-	public UsuarioDTO buscarUsuario(String email, String password) {
+	@POST
+	@Path("/buscar")
+	@Consumes("application/json")
+	public UsuarioDTO buscarUsuario(JsonObject jsonObject) {
+		String password= jsonObject.getString("password");
+		String email=jsonObject.getString("email");
+		System.out.println("Email+Password" + email + password);
 		UsuarioDTO usrDTO = new UsuarioDTO();
 		Usuario usr = new Usuario();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
@@ -69,12 +90,22 @@ public class ServiceCuenta {
 		return usrDTO;
 	}
 
-	public List<UsuarioDTO> listarUsuarios(UsuarioDTO usrDTO, String email) {
-
+	@POST
+	@Path("/listar")
+	@Consumes("application/json")
+	public List<UsuarioDTO> listarUsuarios(JsonObject jsonObject) {
+		UsuarioDTO usrDTO = new UsuarioDTO(jsonObject);
+		String email="";
+		try{
+			email = jsonObject.getString("emailBuscar");
+				
+		}catch(Exception e){
+			email="";
+		}
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		Query query = null;
-
+		System.out.println(usrDTO+email);
 		if (usrDTO.isAdmin() == true) {
 			if (email.equals("")) {
 				query = em.createQuery("Select u from Usuario u");
@@ -115,8 +146,12 @@ public class ServiceCuenta {
 		return listaUsuariosActivosDTO;
 	}
 
-	public void actualizarUsuario(UsuarioDTO usrDTOInicial, UsuarioDTO usrDTOFinal) {
-
+	@PUT
+	@Path("/")
+	@Consumes("application/json")
+	public void actualizarUsuario(JsonObject jsonObject) {
+		UsuarioDTO usrDTOInicial = new UsuarioDTO(jsonObject.getJsonObject("usrDTOInicial"));
+		UsuarioDTO usrDTOFinal = new UsuarioDTO(jsonObject.getJsonObject("usrDTOFinal"));
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -131,34 +166,37 @@ public class ServiceCuenta {
 		query.executeUpdate();
 		em.getTransaction().commit();
 		em.close();
-		emf.close();
+		emf.close();	
 	}
-	
-	public void eliminarUsuario(UsuarioDTO usrDTO) {
 
+	@DELETE
+	@Path("/{email}")
+	@Consumes("application/json")
+	public void eliminarUsuario(@PathParam("email") String email) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
-		try{
+		try {
 			em.getTransaction().begin();
-		Query query = em.createQuery(
-				"DELETE FROM Usuario u  WHERE u.emailusr=:iEmail");
-		query.setParameter("iEmail", usrDTO.getEmail());
-		query.executeUpdate();
-		em.getTransaction().commit();
-		}catch(Exception e){
+			Query query = em.createQuery("DELETE FROM Usuario u  WHERE u.emailusr=:iEmail");
+			query.setParameter("iEmail", email);
+			query.executeUpdate();
+			em.getTransaction().commit();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		em.close();
 		emf.close();
 	}
-	public UsuarioDTO buscarUsuarioByEmail(String email) {
+
+	@GET
+	@Path("/{email}")
+	public UsuarioDTO buscarUsuarioByEmail(@PathParam("email")String email) {
 		UsuarioDTO usrDTO = new UsuarioDTO();
 		Usuario usr = new Usuario();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();
 
-		Query query = em.createQuery(
-				"Select u from Usuario u where u.emailusr=:iEmail");
+		Query query = em.createQuery("Select u from Usuario u where u.emailusr=:iEmail");
 		query.setParameter("iEmail", email);
 		@SuppressWarnings("unchecked")
 		List<Usuario> listaUsuariosActivos = query.getResultList();
@@ -182,6 +220,5 @@ public class ServiceCuenta {
 		usrDTO.setFechaNacimiento(usr.getFechanacimientousr());
 		return usrDTO;
 	}
-
 
 }

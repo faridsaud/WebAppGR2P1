@@ -1,0 +1,53 @@
+<div class="container">
+
+  <section>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <form method="get">
+          <div class="form-group">
+            <label for="correoElectronico">Correo eléctronico</label>
+            <input name="correoElectronico"  type="text" class="form-control" id="correoElectronico" ng-model="emailBuscar" >
+          </div>
+
+          <button type="button" class="btn btn-default" ng-click="buscar()">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <br><br><br>
+    </div>
+  </div>
+  <section>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre de usuario</th>
+
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="usuario in listaUsuarios">
+              <td><a>{{usuario.email}}</a></td>
+              <td>
+                <a ng-href="#/Usuario/modificar/{{usuario.email}}"<span class="glyphicon glyphicon-pencil" title="Modificar Cuenta"></span></a>
+                <a ng-href="#/Usuario/eliminar/{{usuario.email}}"><span class="glyphicon glyphicon-remove" title="Eliminar Cuenta"></span></a>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </section>
+
+
+</div>

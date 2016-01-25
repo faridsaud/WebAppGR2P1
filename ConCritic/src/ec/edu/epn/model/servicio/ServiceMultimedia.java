@@ -7,6 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import ec.edu.epn.model.dto.ItemDTO;
 import ec.edu.epn.model.dto.MultimediaDTO;
@@ -14,6 +19,9 @@ import ec.edu.epn.model.dto.UsuarioDTO;
 import ec.edu.epn.model.jpa.Item;
 import ec.edu.epn.model.jpa.Multimedia;
 
+@Path("/Multimedia/")
+@Produces("application/json")
+@Consumes("application/json")
 public class ServiceMultimedia {
 
 	public void registrarMultimedia(MultimediaDTO mulDTO) {
@@ -103,7 +111,9 @@ public class ServiceMultimedia {
 		return listaMultimediasDTO;
 	}
 	
-	public List<MultimediaDTO> listarMultimediasLike(int idItem) {
+	@GET
+	@Path("/{idItem}")
+	public List<MultimediaDTO> listarMultimediasLike(@PathParam("idItem")int idItem) {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConCritic");
 		EntityManager em = emf.createEntityManager();

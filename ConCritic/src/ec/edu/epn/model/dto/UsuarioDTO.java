@@ -1,7 +1,11 @@
 package ec.edu.epn.model.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.json.JsonObject;
 
 public class UsuarioDTO {
 	private String email="";
@@ -17,7 +21,22 @@ public class UsuarioDTO {
 	
 	public UsuarioDTO(){
 	}
-
+	public UsuarioDTO(JsonObject jsonObject){
+		this.email=jsonObject.getString("email");
+		this.password=jsonObject.getString("password");
+		this.nombre=jsonObject.getString("nombre");
+		this.apellido=jsonObject.getString("apellido");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			this.fechaNacimiento=formatter.parse(jsonObject.getString("fechaNacimiento"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.pais=jsonObject.getString("pais");
+		this.admin=jsonObject.getBoolean("admin");
+		this.estado=jsonObject.getBoolean("estado");
+	}
 	public String getEmail() {
 		return email;
 	}

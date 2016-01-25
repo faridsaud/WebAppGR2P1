@@ -1,6 +1,10 @@
 package ec.edu.epn.model.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.json.JsonObject;
 
 public class ReviewDTO {
 	private int id;
@@ -10,6 +14,7 @@ public class ReviewDTO {
 	private String titulo;
 	private ItemDTO item;
 	private UsuarioDTO usuario;
+	
 	public ReviewDTO() {
 		this.id = 0;
 		this.calificacion = 0;
@@ -19,6 +24,25 @@ public class ReviewDTO {
 		this.item = null;
 		this.usuario = null;
 	}
+
+	public ReviewDTO(JsonObject jsonObject) {
+		this.calificacion = Integer.parseInt(jsonObject.getString("calificacion"));
+		this.comentario = jsonObject.getString("comentario");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			this.fecha=new Date();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.titulo = jsonObject.getString("titulo");
+		this.item= new ItemDTO();
+		this.item.setId(jsonObject.getJsonObject("item").getInt("id"));
+		this.usuario = new UsuarioDTO();
+		this.usuario.setEmail(jsonObject.getJsonObject("usuario").getString("email"));
+				
+	}
+
 	public int getId() {
 		return id;
 	}

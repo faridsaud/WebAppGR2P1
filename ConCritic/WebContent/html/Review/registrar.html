@@ -1,0 +1,65 @@
+<div class="container">
+  <section>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Review</h3>
+      </div>
+      <div class="col-xs-12">
+        <form method="post">
+          <div class="form-group">
+            <label for="tituloRev">Titulo</label> <input name="tituloRev" type="text" class="form-control" id="tituloRev" required="required" ng-model="review.titulo">
+          </div>
+          <div class="form-group">
+            <label for="calificacionRev">Calificación</label> <select name="calificacionRev" class="form-control" id="calificacionRev" required="required" ng-model="review.calificacion">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="comentarioRev">Comentario</label>
+            <textarea name="comentarioRev" class="form-control" rows="5" id="comentarioRev" required="required" ng-model="review.comentario"></textarea>
+          </div>
+          <button type="button" class="btn btn-default" ng-click="registrar()">Registrar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Item</h3>
+      </div>
+    </div>
+    <form>
+      <div class="form-group">
+        <label for="nombre">Nombre del Item</label>
+        <input name="nombreItm" type="text" class="form-control" id="nombreItm" value="" readonly="readonly" ng-model="item.nombre">
+      </div>
+      <div class="form-group">
+        <label for="categoria">Categoria</label>
+        <select name="categoriaItm" class="form-control" id="categoriaItm" disabled="disabled" >
+          <option ng-model="item.categoria.nombre" selected>{{item.categoria.nombre}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripcion</label>
+        <textarea name="descripcionItm" class="form-control" rows="5" id="descripcionItm" readonly="readonly" ng-model="item.descripcion"></textarea>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-xs-12">
+        <uib-carousel interval="3000" no-wrap="false">
+          <uib-slide ng-repeat="imagen in listaMultimedia" active="slide.active" index="slide.id">
+            <img ng-src="{{imagen.path}}" style="margin:auto;">
+
+          </uib-slide>
+        </uib-carousel>
+      </div>
+    </div>
+
+  </section>
+</div>
